@@ -1,0 +1,53 @@
+version: 2
+
+project_name: kwatch
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: kwatch
+    main: .
+    binary: kwatch
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+
+archives:
+  - id: kwatch
+    formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  disable: true # CHANGELOG.md is maintained by hand; avoid duplicate/conflicting notes
+
+brews:
+  - name: kwatch
+    repository:
+      owner: svclimb
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: "https://github.com/svclimb/kwatch"
+    description: "kubectl get --watch with color output and automatic crash diagnosis"
+    license: "MIT"
+    commit_author:
+      name: svclimb
+      email: svclimb@gmail.com
+    commit_msg_template: "kwatch {{ .Tag }}"
+    test: |
+      system "#{bin}/kwatch", "--version"
+    install: |
+      bin.install "kwatch"
