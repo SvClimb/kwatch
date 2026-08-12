@@ -139,6 +139,11 @@ When a pod enters an error state and stays there past the grace period, kwatch f
 
 Disable entirely with `--diagnose=false`. Reduce noise during deploys with a longer delay: `--diagnose-delay=60s`.
 
+Want to see it live without a real cluster or a broken app? [`examples/`](examples/) has
+five ready-to-apply manifests (CrashLoopBackOff, OOMKilled, ImagePullBackOff,
+Init:CrashLoopBackOff, and a silent-restart case) plus instructions for running them on
+a local [kind](https://kind.sigs.k8s.io/) cluster.
+
 ---
 
 ## Shell completion

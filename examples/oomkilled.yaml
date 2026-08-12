@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-oomkilled
+  labels:
+    demo: kwatch
+spec:
+  restartPolicy: Always
+  containers:
+    - name: app
+      image: polinux/stress
+      resources:
+        limits:
+          memory: "50Mi"
+      command: ["stress"]
+      args: ["--vm", "1", "--vm-bytes", "150M", "--vm-hang", "1"]

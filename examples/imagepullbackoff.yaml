@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-imagepullbackoff
+  labels:
+    demo: kwatch
+spec:
+  containers:
+    - name: app
+      image: kwatch-demo/this-image-does-not-exist:v1

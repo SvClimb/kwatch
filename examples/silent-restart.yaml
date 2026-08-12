@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-silent-restart
+  labels:
+    demo: kwatch
+spec:
+  restartPolicy: Always
+  containers:
+    - name: app
+      image: busybox:1.36
+      command: ["sh", "-c", "touch /tmp/healthy; sleep 20; rm -rf /tmp/healthy; sleep 600"]
+      livenessProbe:
+        exec:
+          command: ["cat", "/tmp/healthy"]
+        initialDelaySeconds: 5
+        periodSeconds: 5
