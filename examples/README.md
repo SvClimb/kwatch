@@ -33,10 +33,15 @@ kubectl apply -f examples/
 kwatch
 ```
 
-Within about 30–45 seconds you should see all five pods cycle through their failure
-states and kwatch print a diagnosis block for each. `demo-crashloopbackoff`,
-`demo-oomkilled`, and `demo-init-crashloopbackoff` keep restarting on a loop, so you'll
-see repeated blocks — that's expected, not a bug in the demo.
+Within about 15–30 seconds you should see `demo-crashloopbackoff`, `demo-oomkilled`,
+`demo-imagepullbackoff`, and `demo-init-crashloopbackoff` cycle through their failure
+states and kwatch print a diagnosis block for each. The first three keep restarting on a
+loop, so you'll see repeated blocks — that's expected, not a bug in the demo.
+
+`demo-silent-restart` is slower: its liveness probe only fails after the container's
+been up for a while, and kubelet's probe timing adds overhead on top of that — expect
+its first restart (and diagnosis block) closer to the **one-minute mark**, not the ~30s
+of the others. Don't assume it's stuck if nothing happens right away.
 
 To watch just one scenario in isolation:
 
