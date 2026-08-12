@@ -11,6 +11,12 @@ Feels like kubectl — same flags, same muscle memory. Adds colorized status, an
 
 ## Install
 
+**Homebrew (macOS/Linux):**
+
+```bash
+brew install svclimb/tap/kwatch
+```
+
 **From source (requires Go 1.25+):**
 
 ```bash
