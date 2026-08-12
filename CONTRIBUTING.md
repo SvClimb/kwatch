@@ -5,17 +5,19 @@ Thanks for considering a contribution to kwatch.
 ## Development
 
 ```bash
-make build    # build to bin/kwatch
-make test     # run tests with the race detector
-make lint     # go vet + gofmt check
+make build          # build to bin/kwatch
+make test           # run tests with the race detector
+make lint           # go vet + gofmt check
+make lint-examples  # validate examples/*.yaml against Kubernetes schemas (requires kubeconform)
 ```
 
 Tests don't require a live cluster — `Diagnoser` takes overridable `logsFunc`/`eventsFunc`
 hooks (see `newTestDiagnoser` in `diagnose_test.go`) so crash-diagnosis logic can be
 tested without hitting a real Kubernetes API.
 
-Before opening a PR, make sure `make lint` and `make test` both pass. CI runs the same
-checks on every push and pull request.
+Before opening a PR, make sure `make lint` and `make test` both pass, and `make
+lint-examples` too if you touched `examples/`. CI runs the same checks on every push and
+pull request.
 
 ## Code style
 
